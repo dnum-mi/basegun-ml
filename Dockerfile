@@ -3,5 +3,5 @@ LABEL maintainer="datalab-mi"
 
 RUN chown -R 42420:42420 /workspace
 WORKDIR /workspace
-COPY training/requirements.txt training/prepare_data.py training/README.md ./
+COPY classification/requirements.txt classification/prepare_data.py classification/README.md ./
 RUN pip install --no-cache-dir -r requirements.txt 
