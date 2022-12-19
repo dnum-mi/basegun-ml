@@ -89,9 +89,9 @@ a confusion matrix (format .csv) will have been written to current dir.
 
 0. (Login in your terminal `ovhai login`, write 1.)
 
-1. Use Basegun-lab's Docker image lab-cv to run job
+1. Use Basegun-ml's Docker image to run job
 ```bash
-ovhai job run --gpu 1 --name basegun-sarah-1GPU --volume basegun@GRA/dataset/v0:/workspace/data:ro --volume basegun-public@GRA/models:/workspace/models:rw ghcr.io/datalab-mi/basegun-lab:v0.2
+ovhai job run --gpu 1 --name basegun-yourname-1GPU --volume basegun@GRA/dataset/v0:/workspace/data:ro --volume basegun-public@GRA/models:/workspace/models:rw ghcr.io/datalab-mi/basegun-ml:v0.1
 ```
 
 2. Create notebook `train.ipynb`and copy-paste content from `train.py`. Start training
