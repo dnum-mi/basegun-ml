@@ -1,0 +1,16 @@
+.DS_Store
+/dist/
+env/
+.env
+.ipynb_checkpoints
+__pycache__
+*.jpg
+*.png
+*.jpeg
+*.gif
+*.weights
+*.pth
+*.onnx
+*.csv
+models/
+ignore/

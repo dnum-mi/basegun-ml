@@ -13,7 +13,7 @@ from torch.utils.tensorboard import SummaryWriter
 import torchvision.models as Model
 from tqdm import tqdm
 from sklearn.metrics import accuracy_score, precision_score, recall_score, confusion_matrix
-from prepare_data import load_datasets, get_dataloaders, get_classes, get_sizes
+from prepare_data import load_dataset, get_dataloader, get_classes, get_size
 
 
 NUM_EPOCHS = 30
@@ -37,10 +37,10 @@ NETS = {
 MODEL_TORCH = NETS[MODEL_NAME]['model']
 INPUT_SIZE = NETS[MODEL_NAME]['input_size']
 
-datasets = load_datasets('/workspace/data', input_size=INPUT_SIZE)
-classes = get_classes(datasets)
-dataset_sizes = get_sizes(datasets)
-dataloaders = get_dataloaders(datasets, batch_size=BATCH_SIZE)
+dataset = load_dataset('/workspace/data', input_size=INPUT_SIZE)
+classes = get_classes(dataset)
+dataset_sizes = get_size(dataset)
+dataloaders = get_dataloaders(dataset, batch_size=BATCH_SIZE)
 
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -235,8 +235,8 @@ def test_model(model: Model, training_name: str) -> None:
 
     # Details of predictions probabilities
     probas = outputlist.numpy().transpose() # each line is the probas for this class
-    all_lines = {'filename': [x[0] for x in datasets['val'].imgs],
-                'label': [classes[x[1]] for x in datasets['val'].imgs],
+    all_lines = {'filename': [x[0] for x in dataset['val'].imgs],
+                'label': [classes[x[1]] for x in dataset['val'].imgs],
                 'max_pred': [classes[x] for x in y_pred]}
     for i in range(len(classes)):
         all_lines[classes[i]] = probas[i]

@@ -3,7 +3,9 @@ import numpy as np
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 
-
+##############################
+#       TRANSFORMERS         #
+##############################
 class ConvertRgb(object):
     """Converts an image to RGB
     """
@@ -70,33 +72,44 @@ class RandomPad(object):
             return image
 
 
-def load_datasets(data_dir: str, input_size: int):
-    # Data augmentation and normalization for training,
-    # just normalization for validation
-    data_transforms = {
-        'train': transforms.Compose([
-            Rescale(input_size),
-            RandomPad(input_size),
-            transforms.RandomRotation(degrees=(-5,5)),
-            transforms.RandomPerspective(distortion_scale=0.2),
-            transforms.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.2, hue=0),
-            transforms.ToTensor(),
-            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]) # normalize based on ImageNet
-        ]),
-        'val': transforms.Compose([
-            Rescale(input_size),
-            RandomPad(input_size),
-            transforms.ToTensor(),
-            transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-        ]),
-    }
+##############################
+#   DATA LOADING FUNCTIONS   #
+##############################
 
-    image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x),
-                        data_transforms[x]) for x in ['train', 'val']}
-    return image_datasets
+def load_dataset(data_dir: str, input_size: int, mode='trainval'):
+    # force correct size on dataset images and normalization based on ImageNet
+    val_transforms = transforms.Compose([
+        Rescale(input_size),
+        RandomPad(input_size),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+    ])
+
+    if mode=='trainval':
+        # Dataset separated in train/val (using for training)
+        # train: data augmentation on top of val transforms
+        data_transforms = {
+            'train': transforms.Compose([
+                Rescale(input_size),
+                RandomPad(input_size),
+                transforms.RandomRotation(degrees=(-5,5)),
+                transforms.RandomPerspective(distortion_scale=0.2),
+                transforms.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.2, hue=0),
+                transforms.ToTensor(),
+                transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+            ]),
+            'val': val_transforms,
+        }
+        # ImageFolder automatically converts images to RGB
+        image_datasets= {x: datasets.ImageFolder(os.path.join(data_dir, x),
+                            data_transforms[x]) for x in ['train', 'val']}
+    else:
+        # Single folder dataset (used for testing)
+        image_dataset = datasets.ImageFolder(folder, data_transforms)
+    return image_dataset
 
 
-def get_dataloaders(dataset, batch_size: int):
+def get_dataloader(dataset, batch_size: int):
     """Load data in memory by batch
 
     Args:
@@ -104,20 +117,30 @@ def get_dataloaders(dataset, batch_size: int):
         batch_size (int): number of images in one batch
 
     Returns:
-        Dict[torchvision.utils.data.DataLoader]:
+        torchvision.utils.data.DataLoader: batches of data ready for model input
     """
-    shuffle = {'train': True, 'val': False}
-    dataloaders = {x: DataLoader(dataset[x], batch_size=batch_size,
-                                shuffle=shuffle[x], num_workers=4) for x in ['train', 'val']}
-    return dataloaders
+    if type(dataset) == dict:
+        shuffle = {'train': True, 'val': False}
+        dataloader = {x: DataLoader(dataset[x], batch_size=batch_size,
+                                    shuffle=shuffle[x], num_workers=4) for x in ['train', 'val']}
+    else:
+        dataloader = DataLoader(dataset, batch_size=batch_size,
+                            shuffle=False, num_workers=4)
+    return dataloader
 
 
 def get_classes(dataset) -> list:
-    return dataset['train'].classes
+    if type(dataset) == dict:
+        return dataset['train'].classes
+    else:
+        return dataset.classes
 
 
-def get_sizes(dataset):
-    return {x: len(dataset[x]) for x in ['train', 'val']}
+def get_size(dataset):
+    if type(dataset) == dict:
+        return {x: len(dataset[x]) for x in ['train', 'val']}
+    else:
+        return len(dataset)
 
 
 def show_batch():
@@ -138,3 +161,34 @@ def show_batch():
     plt.imshow(inp)
     plt.title([CLASSES[x] for x in classids])
     plt.pause(0.001)
+
+
+class SingleFolderDataSet(Dataset):
+    # Dataset where there is no subfolder for classes
+    # (can be useful for testing batch of images)
+    def __init__(self, main_dir, transform):
+        self.transform = transform
+        all_imgs = [os.path.join(main_dir, x) for x in os.listdir(main_dir)]
+        self.imgs = sorted(all_imgs)
+
+    def __len__(self):
+        return len(self.imgs)
+
+    def __getitem__(self, idx):
+        img_loc = self.imgs[idx]
+        # ImageFolder automatically converts images to RGB
+        image = Image.open(img_loc).convert("RGB")
+        tensor_image = self.transform(image)
+        return tensor_image
+
+
+def load_singlefolder_dataset(folder: str, input_size: int):
+    data_transforms = transforms.Compose([
+        Rescale(input_size),
+        RandomPad(input_size),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]) # normalize based on ImageNet
+    ])
+
+    image_dataset = SingleFolderDataSet(folder, data_transforms)
+    return image_dataset
