@@ -4,6 +4,8 @@ import os
 import shutil
 import glob
 import copy
+from PIL import ImageFile
+import warnings
 import numpy as np
 import pandas as pd
 import torch
@@ -15,10 +17,14 @@ from tqdm import tqdm
 from sklearn.metrics import accuracy_score, precision_score, recall_score, confusion_matrix
 from prepare_data import load_dataset, get_dataloader, get_classes, get_size
 
+ImageFile.LOAD_TRUNCATED_IMAGES = True
+warnings.filterwarnings("ignore", message="Palette images with Transparency expressed in bytes should be converted to RGBA images")
+
 
 NUM_EPOCHS = 30
-BATCH_SIZE = 128
-MODEL_NAME = 'EffB7'
+BATCH_SIZE = 256
+MODEL_NAME = 'EffB4'
+DATASET = 'v0'
 
 NETS = {
     'EffB0': {'input_size': 224, 'model': Model.efficientnet_b0},
@@ -37,10 +43,10 @@ NETS = {
 MODEL_TORCH = NETS[MODEL_NAME]['model']
 INPUT_SIZE = NETS[MODEL_NAME]['input_size']
 
-dataset = load_dataset('/workspace/data', input_size=INPUT_SIZE)
+dataset = load_dataset('/workspace/datasets/'+DATASET, input_size=INPUT_SIZE)
 classes = get_classes(dataset)
 dataset_sizes = get_size(dataset)
-dataloaders = get_dataloaders(dataset, batch_size=BATCH_SIZE)
+dataloaders = get_dataloader(dataset, batch_size=BATCH_SIZE)
 
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -222,7 +228,14 @@ def test_model(model: Model, training_name: str) -> None:
     y_test, y_pred = lbllist.numpy(), predlist.numpy()
     cm = confusion_matrix(y_test, y_pred, normalize='true')
     df_cm = pd.DataFrame(cm, index = [i for i in classes], columns = [i for i in classes])
-    df_cm.to_csv(f'models/{training_name}/confusion-matrix.csv') # visualize with sn heatmap
+    df_cm.to_csv(f'models/{training_name}/confusion-matrix.csv')
+    # visualize with heatmap
+    df_cm = df_cm.apply(lambda x: round(x,2))
+    fig, ax = plt.subplots(figsize=(10,8))
+    svm = heatmap(df, annot=True)
+    plt.title(training_name)
+    plt.savefig(f'models/{training_name}/confusion-matrix.jpg', dpi=150, bbox_inches='tight')
+    plt.close()
 
     # Other scores
     acc = accuracy_score(y_test, y_pred, normalize=True)
@@ -285,6 +298,7 @@ if __name__=="__main__":
 
     with open(f'models/{training_name}/details.txt', 'a') as outfile:
         outfile.write('\n')
+        outfile.write(f'Dataset = {DATASET}')
         outfile.write(f'Loss = {criterion.__class__.__name__}\n')
         outfile.write(f'Optimizer = {optimizer.__class__.__name__} lr=0.001\n')
         outfile.write(f'Lr = {lr_scheduler.__class__.__name__}\n')

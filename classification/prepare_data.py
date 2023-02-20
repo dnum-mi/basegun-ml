@@ -1,6 +1,6 @@
 import os
 import numpy as np
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, Dataset
 from torchvision import datasets, transforms
 
 ##############################
@@ -101,7 +101,7 @@ def load_dataset(data_dir: str, input_size: int, mode='trainval'):
             'val': val_transforms,
         }
         # ImageFolder automatically converts images to RGB
-        image_datasets= {x: datasets.ImageFolder(os.path.join(data_dir, x),
+        image_dataset= {x: datasets.ImageFolder(os.path.join(data_dir, x),
                             data_transforms[x]) for x in ['train', 'val']}
     else:
         # Single folder dataset (used for testing)
@@ -189,6 +189,5 @@ def load_singlefolder_dataset(folder: str, input_size: int):
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]) # normalize based on ImageNet
     ])
-
     image_dataset = SingleFolderDataSet(folder, data_transforms)
     return image_dataset

@@ -48,6 +48,7 @@ By making a state of the art of classification models at the end of 2021, we not
 <aside>
 ➡️ Therefore we will use a classif EfficientNet for a start.
 </aside>
+> EfficientNet model is only available in Pytorch starting torchvision>=0.11.3, torch>=1.10.2
 
 Images entering EfficientNet must have a fixed size, listed in this table:
 
@@ -72,6 +73,7 @@ Images entering EfficientNet must have a fixed size, listed in this table:
 # 5. Model evaluation
 
 ## During training
+We log the training and validation phases accuracy and loss at each Epoch to Tensorboard and visualize the curves.
 ```bash
 # run from this directory
 tensorboard --logdir runs
@@ -79,31 +81,7 @@ tensorboard --logdir runs
 Open http://localhost:6006/ to visualize training/validation curves.
 
 ## Post training
-Check output of terminal to see the statistings:
-- accuracy
-- precision
-- recall
-a confusion matrix (format .csv) will have been written to current dir.
-
-# Run with OVHAi
-
-0. (Login in your terminal `ovhai login`, write 1.)
-
-1. Use Basegun-ml's Docker image to run job
-```bash
-ovhai job run --gpu 1 --name basegun-yourname-1GPU --volume basegun@GRA/dataset/v0:/workspace/data:ro --volume basegun-public@GRA/models:/workspace/models:rw ghcr.io/datalab-mi/basegun-ml:v0.1
-```
-
-2. Create notebook `train.ipynb`and copy-paste content from `train.py`. Start training
-
-3. Go back to jupyter terminal and run
-```bash
-tensorboard --logdir models --bind_all
-```
-4. Copy again job url and paste to browser while changing the end of url
-`-8082.job.gra.training.ai.cloud.ovh.net/lab?`
-by
-`-6006.job.gra.training.ai.cloud.ovh.net`
-to open tensorboard in browser
-
-5. Remember to stop your job once finished !
+* We write to a file details.txt the accuracy, precision, recall on val dataset and parameters used for the training of this model
+* We write the confusion matrix (format .csv) on val dataset
+* We write a .csv file containing for each image of val dataset, the probability output by the model to belong to each class. This file can be used later to visualize easily images of class X being confused with Y.
+* We can highlight the parts of images being responsible of the predicted result by using a GradCam code we implemented.
