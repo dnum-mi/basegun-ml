@@ -76,7 +76,7 @@ Images entering EfficientNet must have a fixed size, listed in this table:
 We log the training and validation phases accuracy and loss at each Epoch to Tensorboard and visualize the curves.
 ```bash
 # run from this directory
-tensorboard --logdir runs
+tensorboard --logdir models --bind_all
 ```
 Open http://localhost:6006/ to visualize training/validation curves.
 

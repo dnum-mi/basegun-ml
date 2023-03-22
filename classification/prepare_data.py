@@ -105,8 +105,8 @@ def load_dataset(data_dir: str, input_size: int, mode='trainval'):
                             data_transforms[x]) for x in ['train', 'val']}
     else:
         # Single folder dataset (used for testing)
-        image_dataset = datasets.ImageFolder(folder, data_transforms)
-    return image_dataset
+        image_dataset = datasets.ImageFolder(data_dir, val_transforms)
+    return image_dataset, transforms
 
 
 def get_dataloader(dataset, batch_size: int):

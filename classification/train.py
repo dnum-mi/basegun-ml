@@ -24,7 +24,6 @@ warnings.filterwarnings("ignore", message="Palette images with Transparency expr
 NUM_EPOCHS = 30
 BATCH_SIZE = 256
 MODEL_NAME = 'EffB4'
-DATASET = 'v0'
 
 NETS = {
     'EffB0': {'input_size': 224, 'model': Model.efficientnet_b0},
@@ -43,7 +42,7 @@ NETS = {
 MODEL_TORCH = NETS[MODEL_NAME]['model']
 INPUT_SIZE = NETS[MODEL_NAME]['input_size']
 
-dataset = load_dataset('/workspace/datasets/'+DATASET, input_size=INPUT_SIZE)
+dataset, transforms = load_dataset('/workspace/data', input_size=INPUT_SIZE)
 classes = get_classes(dataset)
 dataset_sizes = get_size(dataset)
 dataloaders = get_dataloader(dataset, batch_size=BATCH_SIZE)
@@ -232,7 +231,7 @@ def test_model(model: Model, training_name: str) -> None:
     # visualize with heatmap
     df_cm = df_cm.apply(lambda x: round(x,2))
     fig, ax = plt.subplots(figsize=(10,8))
-    svm = heatmap(df, annot=True)
+    svm = heatmap(df_cm, annot=True)
     plt.title(training_name)
     plt.savefig(f'models/{training_name}/confusion-matrix.jpg', dpi=150, bbox_inches='tight')
     plt.close()
@@ -298,11 +297,11 @@ if __name__=="__main__":
 
     with open(f'models/{training_name}/details.txt', 'a') as outfile:
         outfile.write('\n')
-        outfile.write(f'Dataset = {DATASET}')
         outfile.write(f'Loss = {criterion.__class__.__name__}\n')
-        outfile.write(f'Optimizer = {optimizer.__class__.__name__} lr=0.001\n')
-        outfile.write(f'Lr = {lr_scheduler.__class__.__name__}\n')
+        outfile.write(f'Optimizer = {optimizer.__class__.__name__} lr={round(optimizer.param_groups[0]["lr"], 4)}\n')
+        outfile.write(f'Lr = {lr_scheduler.__class__.__name__} max_lr={round(optimizer.param_groups[0]["max_lr"], 4)}\n')
         outfile.write(f'Epochs = {NUM_EPOCHS}\n')
         outfile.write(f'Base = {MODEL_NAME}\n')
         outfile.write(f'Batch size = {BATCH_SIZE}\n')
         outfile.write('Trained layers = last\n')
+        outfile.write(f'Data preparation = {transforms}\n')
