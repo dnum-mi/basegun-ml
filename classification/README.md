@@ -68,7 +68,7 @@ Images entering EfficientNet must have a fixed size, listed in this table:
 - number of Epochs: at random, to be adjusted with training
 - batch_size: the maximum 2^x value fitting in the GPU memory of the machines that we will use for training. This is recommended by [research](https://arxiv.org/pdf/1506.01186.pdf) in ML.
 - type of optimizer: Adam is generally recommended because it adapts quite well on its own. A friend who does Pytorch in Computer Vision recommended me the [AdamW](https://pytorch.org/docs/stable/generated/torch.optim.AdamW.html) variant which apparently performs better in Pytorch than the Basic Adam.
-- type of learning rate: this same friend recommended an LR type One Cycle. [Reading articles](https://towardsdatascience.com/finding-good-learning-rate-and-the-one-cycle-policy-7159fe1db5d6) about this, it does seem like a solution recommended by the [scientific literature ](https://arxiv.org/pdf/1506.01186.pdf).
+- type of learning rate: we tested several types of learning rates. In the end the one which performs best on our Dataset is OncecyleLR, which echoes with  [articles](https://towardsdatascience.com/finding-good-learning-rate-and-the-one-cycle-policy-7159fe1db5d6) and [scientific literature ](https://arxiv.org/pdf/1506.01186.pdf).
 
 # 5. Model evaluation
 
