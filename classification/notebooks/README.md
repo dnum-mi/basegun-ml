@@ -51,8 +51,8 @@ find /workspace/data/train/ -maxdepth 1 -mindepth 1 -type d -exec ln -s '{}' /wo
 find /workspace/data/train/typo -type f | shuf -n 1000 | xargs -I % ln -s % /workspace/data_copy/train/typo
 ```
 
-## Legacy
-# Run with OVHAi
+# Legacy
+## Run with OVHAi job
 
 0. (Login in your terminal `ovhai login`, write 1.)
 
