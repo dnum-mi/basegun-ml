@@ -58,5 +58,5 @@ find /workspace/data/train/typo -type f | shuf -n 1000 | xargs -I % ln -s % /wor
 
 1. Use Basegun-ml's Docker image to run job
 ```bash
-ovhai job run --gpu 1 --name basegun-yourname-1GPU --volume basegun@GRA/dataset/v0:/workspace/data:ro --volume basegun-public@GRA/models:/workspace/models:rw ghcr.io/datalab-mi/basegun-ml:v0.1
+ovhai job run --gpu 1 --name basegun-yourname-1GPU --volume basegun@GRA/dataset/v0/:/workspace/data:ro --volume basegun-public@GRA/models/:/workspace/models:rw ghcr.io/datalab-mi/basegun-ml:v0.1
 ```
