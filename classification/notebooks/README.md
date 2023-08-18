@@ -14,7 +14,7 @@ ovhai notebook run pytorch jupyterlab \
 	--framework-version pytorch1.10.1-py39-cuda10.2-v22-4 \
 	--flavor ai1-1-cpu \ # or ai1-1-gpu for GPU
 	--cpu 2 \ # or --gpu 1
-	--volume basegun@GRA/dataset/v1:/workspace/data:RWD # or RO for read-only
+	--volume basegun@GRA/dataset/v1/:/workspace/data:RWD # or RO for read-only
 
 
 ovhai capabilities framework ls
