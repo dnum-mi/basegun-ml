@@ -90,8 +90,8 @@ def load_dataset(data_dir: str, input_size: int, mode='trainval'):
         # train: data augmentation on top of val transforms
         data_transforms = {
             'train': transforms.Compose([
-                Rescale(input_size),
-                RandomPad(input_size),
+                Rescale(random.randint(int(input_size*1.2), int(input_size*2))),
+                transforms.RandomCrop(input_size, pad_if_needed=True),
                 transforms.RandomRotation(degrees=(-5,5)),
                 transforms.RandomPerspective(distortion_scale=0.2),
                 transforms.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.2, hue=0),
