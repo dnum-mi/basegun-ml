@@ -1,7 +1,7 @@
 # Training a Keypoint Detection Model
 
 # Dataset
-// Please insert a link to the dataset section of the wiki here
+Check out our wiki section about the [measure dataset](https://github.com/datalab-mi/Basegun-ml/wiki/Measure-dataset).
 
 ## How to Train a YOLOV8 Pose on a Custom Dataset
 The YOLOV8 documentation provides comprehensive and well-explained instructions for training the model on a custom dataset. You can find it [here](https://docs.ultralytics.com/modes/train/).
@@ -28,7 +28,7 @@ names:
 ```
 
 ## Modified Metric
-// Please insert a link to the wiki explanation of the metric issue here
+Check out our wiki for more details [here](https://github.com/datalab-mi/Basegun-ml/wiki/Keypoint-Detection-Training#keypoint-detection-loss)
 
 As previously explained, the keypoint metric has been modified. To do this, you need to clone the YOLOV8 repository and modify the keypoint loss function as explained [here](https://github.com/ultralytics/ultralytics/issues/2543).
 
