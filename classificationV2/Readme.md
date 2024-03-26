@@ -1,4 +1,4 @@
-# Training a Keypoint Detection Model
+# Training a classification Model
 
 # Dataset
 The dataset is described [here](https://github.com/datalab-mi/Basegun-ml/wiki/Classification-dataset)
