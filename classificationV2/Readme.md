@@ -1,7 +1,7 @@
 # Training a Keypoint Detection Model
 
 # Dataset
-The dataset used is the same as before
+The dataset is described [here](https://github.com/datalab-mi/Basegun-ml/wiki/Classification-dataset)
 
 ## How to Train a YOLOV8 model on a Custom Dataset
 The YOLOV8 documentation provides comprehensive and well-explained instructions for training the model on a custom dataset. You can find it [here](https://docs.ultralytics.com/modes/train/).
