@@ -1,5 +1,5 @@
 # Training a classification Model
-
+This is the second version of the classification algorithm, the first version is available inside the legacy folder.
 # Dataset
 The dataset is described [here](https://github.com/datalab-mi/Basegun-ml/wiki/Classification-dataset)
 
