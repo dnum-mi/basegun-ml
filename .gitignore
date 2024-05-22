@@ -10,7 +10,7 @@ __pycache__
 *.gif
 *.weights
 *.pth
-*.onnx
+#*.onnx
 *.csv
 models/
 ignore/
