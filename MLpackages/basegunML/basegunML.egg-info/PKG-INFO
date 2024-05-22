@@ -1,0 +1,16 @@
+Metadata-Version: 2.1
+Name: basegunML
+Version: 0.1
+Summary: A classification package for the basegun app
+Author: aurelien martinez
+Project-URL: Basegun-ml, https://github.com/datalab-mi/Basegun-ml
+Project-URL: Basegun, https://github.com/datalab-mi/Basegun
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: ultralytics
+Requires-Dist: pillow
+Requires-Dist: onnxruntime
+Requires-Dist: opencv-python
+Requires-Dist: numpy

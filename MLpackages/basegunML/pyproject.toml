@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.package-data]
+basegunML = ["*.pt","*.jpg","*.onnx"]
+
+
+[project]
+name = "basegunML"
+version = "0.1"
+authors = [
+  { name="aurelien martinez" },
+]
+description = "A classification package for the basegun app"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  "ultralytics",
+  "pillow",
+  "onnxruntime",
+  "opencv-python",
+  "numpy"
+]
+
+[project.urls]
+Basegun-ml = "https://github.com/datalab-mi/Basegun-ml"
+Basegun = "https://github.com/datalab-mi/Basegun"

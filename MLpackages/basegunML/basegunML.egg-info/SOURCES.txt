@@ -1,0 +1,15 @@
+README.md
+pyproject.toml
+basegunML/YOLOClassifN.pt
+basegunML/__init__.py
+basegunML/classification.py
+basegunML/keypoints.pt
+basegunML/measure.py
+basegunML/modelCard.onnx
+basegunML/utils.py
+basegunML/warmup.jpg
+basegunML.egg-info/PKG-INFO
+basegunML.egg-info/SOURCES.txt
+basegunML.egg-info/dependency_links.txt
+basegunML.egg-info/requires.txt
+basegunML.egg-info/top_level.txt

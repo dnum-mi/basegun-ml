@@ -4,7 +4,7 @@ env/
 .env
 .ipynb_checkpoints
 __pycache__
-*.jpg
+#*.jpg
 *.png
 *.jpeg
 *.gif
