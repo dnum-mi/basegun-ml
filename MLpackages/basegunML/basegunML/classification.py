@@ -2,7 +2,7 @@ from io import BytesIO
 from typing import Union
 from ultralytics import YOLO
 from PIL import Image
-from basegunML import modelClassif
+from basegunML import model_classif
 
 
 CLASSES = [
@@ -44,14 +44,14 @@ def get_typology(img: bytes) -> Union[str, float,str]:
         Union[str, float,str]: (label, confidence score,confidence level) of best class predicted
     """
     im = Image.open(BytesIO(img))
-    results = modelClassif(im,verbose=False)
+    results = model_classif(im,verbose=False)
     predicted_class=results[0].probs.top5[0]
     label=CLASSES[predicted_class]
     confidence=float(results[0].probs.top5conf[0])
-    return (label, confidence,confLevel(confidence))
+    return (label, confidence,conf_level(confidence))
 
 
-def confLevel(conf:float)-> str:
+def conf_level(conf:float)-> str:
     """determine a confidence level for the prediction
 
     Args:
@@ -67,7 +67,7 @@ def confLevel(conf:float)-> str:
     else:
         return "high"
     
-def listTypologies()-> list:
+def list_typologies()-> list:
     """determine a confidence level for the prediction
 
     Returns:

@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from basegunML import modelCard,modelKeypoints
+from basegunML import model_card,model_keypoints
 from basegunML.utils import rotate, distanceCalculate, scalarproduct
 
 def get_card(image,model):   
@@ -43,15 +43,15 @@ def get_lengths(imagebytes,draw=True,output_filename="result.jpg"):
     image = cv2.imdecode(np.asarray(bytearray(imagebytes)),cv2.IMREAD_COLOR)
     image=rotate(image)
     
-    keypoints=get_keypoints(image,modelKeypoints)
+    keypoints=get_keypoints(image,model_keypoints)
     if len(keypoints)==0:
         return (0,0,0)
     if keypoints[3][0]< keypoints[0][0]: #Weapon upside down
         image=cv2.rotate(image, cv2.ROTATE_180)
-        keypoints=get_keypoints(image,modelKeypoints)
+        keypoints=get_keypoints(image,model_keypoints)
     
     
-    cards=get_card(image,modelCard)
+    cards=get_card(image,model_card)
     if len(cards)==0:
         return (0,0,0)
     card=cards[0]
