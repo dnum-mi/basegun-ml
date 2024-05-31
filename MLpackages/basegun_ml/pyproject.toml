@@ -7,12 +7,12 @@ basegunML = ["*.pt","*.jpg","*.onnx"]
 
 
 [project]
-name = "basegunML"
+name = "basegun_ml"
 version = "0.1"
 authors = [
   { name="aurelien martinez" },
 ]
-description = "A classification package for the basegun app"
+description = "A deeplearning package for the basegun weapon recongition app"
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
