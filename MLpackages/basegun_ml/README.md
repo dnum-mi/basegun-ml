@@ -26,7 +26,7 @@ list_typologies()
 
 <li> <b>confidence_level</b>: there are 3 level of confidence defined. According to this performance level the basegun user will have more information.
 
-## Measure length//decrire variables
+## Measure length
 ```Python
 from basegunML.measure import get_lengths
 
@@ -50,29 +50,7 @@ Tests are available for the classification task and the measure length task
 pytest tests/test_classification.py 
 pytest tests/test_measure.py
 ```
-# Deep Learning Model version
+# Credits
 
-## Classification model
-The classification model is based on YOLOV8.
-<li> model size : nano
-<li> dataset used : basegun V1
-<li> data augmentation : 
-<li> hyperparameters : 
-<li> training date :
-
-
-## Keypoint detection model
-The keypoint detection model is based on YOLOV8.
-<li> model size : nano
-<li> dataset used : keypoints
-<li> data augmentation : 
-<li> hyperparameters : 
-<li> training date :
-
-## Oriented Bounding Box card detection model
-The Oriented Bounding Box card detection model is based on YOLOV5.
-<li> model size : nano
-<li> dataset used : Card detection
-<li> data augmentation : 
-<li> hyperparameters : 
-<li> training date :
+<li>This project uses the [Ultralytics Library](https://github.com/ultralytics/ultralytics)
+<li>The oriented bounding box detection is inspired from [this](https://github.com/hukaixuan19970627/yolov5_obb) YOLOV5 implementation

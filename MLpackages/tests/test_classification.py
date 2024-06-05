@@ -1,4 +1,4 @@
-from basegunML.classification import *
+from basegun_ml.classification import get_typology
 import os
 
 

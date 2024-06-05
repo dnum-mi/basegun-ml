@@ -1,4 +1,4 @@
-from basegunML.measure import *
+from basegun_ml.measure import get_lengths
 import os
 
 
