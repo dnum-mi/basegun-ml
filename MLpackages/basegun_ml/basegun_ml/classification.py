@@ -30,11 +30,11 @@ def load_model_inference(model_path: str):
     Returns:
         Model: loaded model ready for prediction
     """
-    model=YOLO(model_path)
+    model = YOLO(model_path)
     return model
 
 
-def get_typology(img: bytes) -> Union[str, float,str]:
+def get_typology(img: bytes) -> Union[str, float, str]:
     """Run the model prediction on an image
 
     Args:
@@ -44,14 +44,14 @@ def get_typology(img: bytes) -> Union[str, float,str]:
         Union[str, float,str]: (label, confidence score,confidence level) of best class predicted
     """
     im = Image.open(BytesIO(img))
-    results = model_classif(im,verbose=False)
-    predicted_class=results[0].probs.top5[0]
-    label=CLASSES[predicted_class]
-    confidence=float(results[0].probs.top5conf[0])
-    return (label, confidence,conf_level(confidence))
+    results = model_classif(im, verbose=False)
+    predicted_class = results[0].probs.top5[0]
+    label = CLASSES[predicted_class]
+    confidence = float(results[0].probs.top5conf[0])
+    return (label, confidence, conf_level(confidence))
 
 
-def conf_level(conf:float)-> str:
+def conf_level(conf: float) -> str:
     """determine a confidence level for the prediction
 
     Args:
@@ -60,14 +60,15 @@ def conf_level(conf:float)-> str:
     Returns:
         str: confidence level "high, medium, low"
     """
-    if conf< 0.76:
+    if conf < 0.76:
         return "low"
     elif conf < 0.98:
         return "medium"
     else:
         return "high"
-    
-def list_typologies()-> list:
+
+
+def list_typologies() -> list:
     """determine a confidence level for the prediction
 
     Returns:
