@@ -26,6 +26,7 @@ dependencies = [
   "opencv-python",
   "numpy"
 ]
+license = {file = "LICENSE"}
 
 [project.urls]
 Basegun-ml = "https://github.com/datalab-mi/Basegun-ml"
