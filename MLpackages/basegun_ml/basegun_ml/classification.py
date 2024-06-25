@@ -48,10 +48,10 @@ def get_typology(img: bytes) -> Union[str, float, str]:
     predicted_class = results[0].probs.top5[0]
     label = CLASSES[predicted_class]
     confidence = float(results[0].probs.top5conf[0])
-    return (label, confidence, conf_level(confidence))
+    return (label, confidence, get_confidence_level(confidence))
 
 
-def conf_level(conf: float) -> str:
+def get_confidence_level(confidence: float) -> str:
     """determine a confidence level for the prediction
 
     Args:
@@ -60,9 +60,9 @@ def conf_level(conf: float) -> str:
     Returns:
         str: confidence level "high, medium, low"
     """
-    if conf < 0.76:
+    if confidence < 0.76:
         return "low"
-    elif conf < 0.98:
+    elif confidence < 0.98:
         return "medium"
     else:
         return "high"
@@ -72,6 +72,6 @@ def list_typologies() -> list:
     """determine a confidence level for the prediction
 
     Returns:
-        lsit: list of typologies
+        list: list of typologies
     """
     return CLASSES

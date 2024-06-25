@@ -13,9 +13,7 @@ def get_card(image, model):
     Returns:
         Prediction: Oriented boundng box(x,y,x,y,x,y,x,y ,CONF_THRES, NMS_THRES)
     """
-
-    results = model.run(image)
-    return results
+    return model.run(image)
 
 
 def get_keypoints(image, model):

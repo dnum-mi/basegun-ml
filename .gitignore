@@ -14,3 +14,4 @@ __pycache__
 *.csv
 models/
 ignore/
+MLpackages/basegun_ml/dist
