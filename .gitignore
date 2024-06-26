@@ -15,4 +15,4 @@ __pycache__
 models/
 ignore/
 MLpackages/basegun_ml/dist
-*egg-info
+*.egg-info/
