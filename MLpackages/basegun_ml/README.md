@@ -4,7 +4,7 @@ Basegun_ml is a deeplearning package for the basegun weapon recongition app.
 # Usage
 ## Classification
 ```Python
-from basegunML.classification import get_typology, list_typologies
+from basegun_ml.classification import get_typology, list_typologies
 #After the import the model is already warmed-up for faster inference
 
 #Convert image to bytes
@@ -27,7 +27,7 @@ list_typologies()
 
 ## Measure length
 ```Python
-from basegunML.measure import get_lengths
+from basegun_ml.measure import get_lengths
 
 #Convert image to bytes
 with open("test.jpg", "rb") as file:
