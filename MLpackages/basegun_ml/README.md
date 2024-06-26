@@ -1,7 +1,6 @@
-# Installation
-```
-pip install .\Basegun-ml\MLpackages\basegunML\dist\basegunml-0.1.tar.gz
-```
+# Project description
+Basegun_ml is a deeplearning package for the basegun weapon recongition app.
+
 # Usage
 ## Classification
 ```Python
@@ -52,5 +51,5 @@ pytest tests/test_measure.py
 ```
 # Credits
 
-<li>This project uses the [Ultralytics Library](https://github.com/ultralytics/ultralytics)
-<li>The oriented bounding box detection is inspired from [this](https://github.com/hukaixuan19970627/yolov5_obb) YOLOV5 implementation
+- This project uses the [Ultralytics Library](https://github.com/ultralytics/ultralytics) 
+- The oriented bounding box detection is inspired from [this YOLOV5 implementation](https://github.com/hukaixuan19970627/yolov5_obb) 

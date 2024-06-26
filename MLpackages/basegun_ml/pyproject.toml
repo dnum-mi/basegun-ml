@@ -8,7 +8,7 @@ basegun_ml = ["*.pt","*.jpg","*.onnx"]
 
 [project]
 name = "basegun_ml"
-version = "0.1"
+version = "1.0"
 authors = [
   { name="aurelien martinez" },
 ]

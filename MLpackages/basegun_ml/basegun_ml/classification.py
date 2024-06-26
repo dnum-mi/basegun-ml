@@ -2,7 +2,7 @@ from io import BytesIO
 from typing import Union
 from ultralytics import YOLO
 from PIL import Image
-from basegunML import model_classif
+from basegun_ml import model_classif
 
 
 CLASSES = [
