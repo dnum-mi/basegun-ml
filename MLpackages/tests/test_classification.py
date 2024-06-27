@@ -11,7 +11,7 @@ def to_bytes(img):
     return image_bytes
 
 
-class Test_typology:
+class TestTypology:
     def test_verrou(self):
         pred = get_typology(to_bytes(this_dir + "/tests_images/test_typo/a_verrou.jpg"))
         assert pred[0] == "epaule_a_verrou"
@@ -77,7 +77,7 @@ class Test_typology:
         assert pred[0] == "epaule_a_un_coup_par_canon"
 
 
-class Test_confidence:
+class TestConfidence:
     def test_verrou(self):
         pred = get_typology(to_bytes(this_dir + "/tests_images/test_typo/a_verrou.jpg"))
         assert pred[2] == "high"

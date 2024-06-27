@@ -16,7 +16,7 @@ def equalMarg(a, b, margin):
     return abs(b - a) < margin
 
 
-class Test_measure:
+class TestMeasure:
     def test_Noweapon(self):
         pred = get_lengths(
             to_bytes(this_dir + "/tests_images/test_measure/noWeapon.JPG"), draw=False
