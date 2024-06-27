@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.package-data]
+basegun_ml = ["*.pt","*.jpg","*.onnx"]
+
+
+[project]
+name = "basegun_ml"
+version = "1.0.1"
+authors = [
+  { name="aurelien martinez" },
+]
+description = "A deeplearning package for the basegun weapon recongition app"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  "ultralytics",
+  "pillow",
+  "onnxruntime",
+  "opencv-python",
+  "numpy"
+]
+license = {file = "LICENSE"}
+
+[project.urls]
+Basegun-ml = "https://github.com/datalab-mi/Basegun-ml"
+Basegun = "https://github.com/datalab-mi/Basegun"
