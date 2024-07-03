@@ -24,7 +24,11 @@ dependencies = [
   "pillow",
   "onnxruntime",
   "opencv-python",
-  "numpy"
+  "numpy",
+  "fuzzysearch",
+  "pyiqa",
+  "torch",
+  "paddleocr"
 ]
 license = {file = "LICENSE"}
 

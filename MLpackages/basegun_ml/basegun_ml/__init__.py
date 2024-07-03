@@ -1,7 +1,7 @@
 from ultralytics import YOLO
 import os
 from basegun_ml.utils import load_models
-
+from paddleocr import PaddleOCR
 
 this_dir, this_filename = os.path.split(__file__)
 
@@ -13,3 +13,5 @@ model_card, model_keypoints = load_models(
     os.path.join(this_dir, "./keypoints.pt"),
     os.path.join(this_dir, "warmup.jpg"),
 )
+
+model_ocr = PaddleOCR(use_angle_cls=True, lang='en',show_log = False)
