@@ -1,6 +1,11 @@
 # Project description
 Basegun_ml is a deeplearning package for the basegun weapon recongition app.
 
+# Installation
+```
+pip install basegun-ml
+```
+
 # Usage
 ## Classification
 ```Python
