@@ -5,3 +5,5 @@ Check out [our wiki](https://github.com/dnum-mi/Basegun-ml/wiki) to learn more a
 * [Classification](https://github.com/dnum-mi/Basegun-ml/tree/master/classification): code for training image classifier neural networks.
 * [Measure module](https://github.com/dnum-mi/Basegun-ml/tree/master/measure_module): code for training the measure module algorithms to determine the weapon length and barrel length
 * [MLpackage](https://github.com/dnum-mi/Basegun-ml/tree/master/MLpackage): code of the basegun_ml package
+
+It uses YOLO -> /!\ Licence
