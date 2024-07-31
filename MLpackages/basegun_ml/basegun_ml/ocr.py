@@ -3,6 +3,7 @@ from fuzzysearch import find_near_matches
 import io
 import PIL.Image as Image
 import numpy as np
+from basegun_ml.exception import MissingText,LowQuality
 
 
 QUALITY_THRESHOLD=0.50
@@ -124,11 +125,10 @@ def is_alarm_weapon(image_bytes,quality_check=True):
     if quality_check: #possibilité ne pas prendre en compte la verification de qualité d'image
         eval=quality_eval(img)
     else:
-        quality_eval=True
+        eval=True
 
-    if quality_eval(img):
+    if eval:
         results = model_ocr.ocr(np.asarray(img), cls=True)
-        print(results)
         if results!=[None]: #The results with recongition and detection confidence below 0.5 are filtered by paddle, the thresholds values can be changed
             text=get_text(results[0])
             if is_alarm_model(text):
@@ -138,6 +138,6 @@ def is_alarm_weapon(image_bytes,quality_check=True):
             else:
                 return "Not an alarm weapon"
         else:
-            return "Text not detected"
+            raise MissingText
     else:
-        return "The photo does not seem to have a good quality please take another photo"
+        raise LowQuality
