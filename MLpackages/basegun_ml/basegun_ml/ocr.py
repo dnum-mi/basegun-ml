@@ -111,7 +111,7 @@ def quality_eval(img):
     return res>QUALITY_THRESHOLD
 
 
-def is_alarm_weapon(image_bytes):
+def is_alarm_weapon(image_bytes,quality_check=True):
     """Global pipeline for determining if the weapon is an alarm gun using OCR
     Args:
         image_bytes: Bytes image from Basegun
@@ -119,7 +119,12 @@ def is_alarm_weapon(image_bytes):
     Returns:
         string: User feedback on image quality or on alarm gun assessment
     """
+
     img = Image.open(io.BytesIO(image_bytes))
+    if quality_check: #possibilité ne pas prendre en compte la verification de qualité d'image
+        eval=quality_eval(img)
+    else:
+        quality_eval=True
 
     if quality_eval(img):
         results = model_ocr.ocr(np.asarray(img), cls=True)
