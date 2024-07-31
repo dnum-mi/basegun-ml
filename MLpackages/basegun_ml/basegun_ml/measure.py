@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 from basegun_ml import model_card, model_keypoints
 from basegun_ml.utils import rotate, distanceCalculate, scalarproduct
+from basegun_ml.exception import MissingCard,MissingGun
 
 
 def get_card(image, model):
@@ -44,14 +45,14 @@ def get_lengths(imagebytes, draw=True, output_filename="result.jpg"):
 
     keypoints = get_keypoints(image, model_keypoints)
     if len(keypoints) == 0:
-        return (0, 0, 0)
+        raise MissingGun
     if keypoints[3][0] < keypoints[0][0]:  # Weapon upside down
         image = cv2.rotate(image, cv2.ROTATE_180)
         keypoints = get_keypoints(image, model_keypoints)
 
     cards = get_card(image, model_card)
     if len(cards) == 0:
-        return (0, 0, 0)
+        raise MissingCard
     card = cards[0]
     confCard = card[8]
     CardP = distanceCalculate((card[0], card[1]), (card[4], card[5]))

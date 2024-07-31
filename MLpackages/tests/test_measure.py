@@ -1,5 +1,7 @@
 from basegun_ml.measure import get_lengths
+from basegun_ml.exception import MissingCard,MissingGun
 import os
+import pytest
 
 
 this_dir, this_filename = os.path.split(__file__)
@@ -18,16 +20,13 @@ def equalMarg(a, b, margin):
 
 class TestMeasure:
     def test_Noweapon(self):
-        pred = get_lengths(
-            to_bytes(this_dir + "/tests_images/test_measure/noWeapon.JPG"), draw=False
-        )
-        assert pred == (0, 0, 0)
+        with pytest.raises(MissingGun):
+            get_lengths(to_bytes(this_dir + "/tests_images/test_measure/noWeapon.JPG"), draw=False)
+
 
     def test_NoCard(self):
-        pred = get_lengths(
-            to_bytes(this_dir + "/tests_images/test_measure/noCard.jpg"), draw=False
-        )
-        assert pred == (0, 0, 0)
+        with pytest.raises(MissingCard):
+            get_lengths(to_bytes(this_dir + "/tests_images/test_measure/noCard.jpg"), draw=False)
 
     def test_perfverrou(self):
         pred = get_lengths(
