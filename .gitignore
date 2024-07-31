@@ -9,7 +9,7 @@ __pycache__
 *.jpeg
 *.gif
 *.weights
-*.pth
+#*.pth
 #*.onnx
 *.csv
 models/

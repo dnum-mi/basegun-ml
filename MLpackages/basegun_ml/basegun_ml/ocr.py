@@ -1,13 +1,11 @@
-from basegun_ml import model_ocr
+from basegun_ml import model_ocr,metric_iqa
 from fuzzysearch import find_near_matches
-import pyiqa
-import torch
 import io
 import PIL.Image as Image
 import numpy as np
 
 
-THRESHOLD=35
+QUALITY_THRESHOLD=0.50
 
 def get_text(results):
     """extracts raw text from PaddleOCR output
@@ -19,7 +17,7 @@ def get_text(results):
     """
     text=" "
     for result in results:
-        text=text+result[0][1][0]+" "
+        text=text+result[1][0]+" "
     return text.lower()
 
 
@@ -44,7 +42,7 @@ def is_alarm_model(text):
         boolean: true if the an alarm model is recognized
     """
     #fuzzy search for words but exat value for model number
-    zoraki=["r2", "925","906","2906","918"]
+    zoraki=["r2", "925","92s","906","2906","918","9o6","29o6"]
     
     #Blow
     if is_in("blow",text):
@@ -60,12 +58,17 @@ def is_alarm_model(text):
             return False
     
     elif is_in("kimar",text):
-        if "auto"in text:
-            if any(word in text for word in ["75","92"]):
+        if is_in("auto",text):
+            if "75" in text:
                 return True
             else:
                 return False
         elif "911" in text:
+            return True
+        else:
+            return False
+    elif is_in("auto",text):
+        if "92" in text:
             return True
         else:
             return False
@@ -86,24 +89,26 @@ def is_pak(text):
     Returns:
         boolean: true if the PAK engraving is recognized
     """
-    if any(word in text for word in ["pak ","p.a.k","pak."," pak"]):
+    if any(word in text for word in ["pak ","p.a.k","pak."," pak","pa.k","p.ak","knall","P.A.Knall"]):
         return True
     else:
         return False
     
-def brisque_eval(img):
-    """Evaluate the brisque metric for image quality and compare it to a defined threshold
+def quality_eval(img):
+    """Evaluate the CNNIQA for image quality and compare it to a defined threshold
     Args:
         img: PIL image
 
     Returns:
         boolean: true if the image has a good quality (score<threshold)
     """
-    device = torch.device("cpu")
-    brisque = pyiqa.create_metric('brisque', device=device)
-    res=brisque(img)
+    width, height = img.size
+    ratio = 640/width
+    newsize = (640, int(height*ratio))
+    im1 = img.resize(newsize)
+    res=metric_iqa(im1)
     print(res)
-    return res<THRESHOLD
+    return res>QUALITY_THRESHOLD
 
 
 def is_alarm_weapon(image_bytes):
@@ -116,11 +121,11 @@ def is_alarm_weapon(image_bytes):
     """
     img = Image.open(io.BytesIO(image_bytes))
 
-    if brisque_eval(img):
+    if quality_eval(img):
         results = model_ocr.ocr(np.asarray(img), cls=True)
         print(results)
-        if results!=[None]:
-            text=get_text(results)
+        if results!=[None]: #The results with recongition and detection confidence below 0.5 are filtered by paddle, the thresholds values can be changed
+            text=get_text(results[0])
             if is_alarm_model(text):
                 return "alarm weapon from model"
             elif is_pak(text):
@@ -128,6 +133,6 @@ def is_alarm_weapon(image_bytes):
             else:
                 return "Not an alarm weapon"
         else:
-            return "Text not detected please get closer to the weapon"
+            return "Text not detected"
     else:
         return "The photo does not seem to have a good quality please take another photo"
