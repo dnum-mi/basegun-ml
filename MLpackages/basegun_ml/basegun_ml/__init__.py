@@ -2,6 +2,10 @@ from ultralytics import YOLO
 import os
 from basegun_ml.utils import load_models
 from paddleocr import PaddleOCR
+import torch
+import pyiqa
+
+os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
 this_dir, this_filename = os.path.split(__file__)
 
@@ -13,5 +17,6 @@ model_card, model_keypoints = load_models(
     os.path.join(this_dir, "./keypoints.pt"),
     os.path.join(this_dir, "warmup.jpg"),
 )
-
-model_ocr = PaddleOCR(use_angle_cls=True, lang='en',show_log = False)
+model_ocr=PaddleOCR(det_model_dir=os.path.join(this_dir,'PaddleModels/detection'), rec_model_dir=os.path.join(this_dir,'PaddleModels/recognition'), cls_model_dir=os.path.join(this_dir,'PaddleModels/classification'), use_angle_cls=True,show_log = False) 
+device = torch.device("cpu")
+metric_iqa = pyiqa.create_metric('cnniqa', device=device,pretrained_model_path=os.path.join(this_dir,'CNNIQA.pth'))

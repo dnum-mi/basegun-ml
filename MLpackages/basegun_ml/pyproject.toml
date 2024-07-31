@@ -3,8 +3,8 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.package-data]
-basegun_ml = ["*.pt","*.jpg","*.onnx"]
-
+basegun_ml = ["*.pt","*.jpg","*.onnx","*pth"]
+"basegun_ml.PaddleModels"=["**"]
 
 [project]
 name = "basegun_ml"
