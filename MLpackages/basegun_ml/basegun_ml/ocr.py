@@ -57,7 +57,7 @@ def is_alarm_model(text):
             return True
         else:
             return False
-    
+    #Kimar
     elif is_in("kimar",text):
         if is_in("auto",text):
             if "75" in text:
@@ -69,10 +69,16 @@ def is_alarm_model(text):
         else:
             return False
     elif is_in("auto",text):
-        if "92" in text:
+        if any(word in text for word in ["92","85"]):
             return True
         else:
             return False
+    elif is_in("lady k",text):
+        return True
+    elif is_in("python",text):
+        return True
+    elif "pk4" in text:
+        return True
     elif is_in("alarm",text): #Sur ce type de modèle il arrive que le mot kimar soit remplacé par le logo
             if any(is_in(word,text) for word in ["competitive","power"]):
                 return True
