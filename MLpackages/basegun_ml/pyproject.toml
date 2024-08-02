@@ -20,15 +20,15 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-  "ultralytics>=8.0.66",
+  "ultralytics>=8.2.48",
   "pillow>=7.1.2",
   "onnxruntime>=1.9.0",
   "opencv-python>=4.6.0",
   "numpy>=1.21.6",
   "fuzzysearch",
-  "pyiqa",
-  "torch>=1.7.0",
-  "paddleocr"
+  "pyiqa=0.1.11",
+  "torch=2.3.1",
+  "paddleocr=2.7.3"
 ]
 license = {file = "LICENSE"}
 
