@@ -48,13 +48,45 @@ weapon_length,barrel_length,confidence_card=get_lengths(image_bytes)
 
 <li> <b>confidence_card</b>: it corresponds to the confidence score for the card prediction. A card is used as a reference for the measure module
 
+<li> If the gun is not detected, the exception <b>MissingGun</b> is raised
+
+<li> If the card is not detected, the exception <b>MissingCard</b> is raised
+
+## Alarm Model detection
+```Python
+from basegun_ml.ocr import is_alarm_weapon
+#After the import the model is already warmed-up for faster inference
+
+#Convert image to bytes
+with open("test.jpg", "rb") as file:
+    image_bytes = file.read()
+
+#Prediction of the weapon typology
+alarm_model = is_alarm_weapon(image_bytes, quality_check=True )
+
+
+```
+### Variables description
+<li> <b>alarm_model</b> if the gun is one of the alarm model it returns "alarm weapon from model". If the gun has the PAK marking then alarm_model returns "alarm weapon PAK".
+
+<li> <b>quality_check</b> specify if the quality analysis is run before the text detection
+
+<li> If the image quality is too low, the exception <b>LowQuality</b> is raised
+
+<li> If no text is detected, the exception <b>MissingText</b> is raised
+
+
+
 # Tests
 Tests are available for the classification task and the measure length task
 ```
 pytest tests/test_classification.py 
 pytest tests/test_measure.py
+pytest tests/test_OCR.py
 ```
 # Credits
 
 - This project uses the [Ultralytics Library](https://github.com/ultralytics/ultralytics) 
 - The oriented bounding box detection is inspired from [this YOLOV5 implementation](https://github.com/hukaixuan19970627/yolov5_obb) 
+- The image quality analysis uses [Pyiqa](https://github.com/chaofengc/IQA-PyTorch)
+- The OCR tasks are computed using [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR?tab=readme-ov-file)
