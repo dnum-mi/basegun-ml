@@ -1,5 +1,5 @@
 from basegun_ml.measure import get_lengths
-from basegun_ml.exception import MissingCard,MissingGun
+from basegun_ml.exception import MissingCard, MissingGun
 import os
 import pytest
 
@@ -14,19 +14,23 @@ def to_bytes(img):
 
 
 def equalMarg(a, b, margin):
-    #measure if the predicted length is close enough to the true length
+    # measure if the predicted length is close enough to the true length
     return abs(b - a) < margin
 
 
 class TestMeasure:
     def test_Noweapon(self):
         with pytest.raises(MissingGun):
-            get_lengths(to_bytes(this_dir + "/tests_images/test_measure/noWeapon.JPG"), draw=False)
-
+            get_lengths(
+                to_bytes(this_dir + "/tests_images/test_measure/noWeapon.JPG"),
+                draw=False,
+            )
 
     def test_NoCard(self):
         with pytest.raises(MissingCard):
-            get_lengths(to_bytes(this_dir + "/tests_images/test_measure/noCard.jpg"), draw=False)
+            get_lengths(
+                to_bytes(this_dir + "/tests_images/test_measure/noCard.jpg"), draw=False
+            )
 
     def test_perfverrou(self):
         pred = get_lengths(

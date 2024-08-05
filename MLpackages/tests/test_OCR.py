@@ -1,5 +1,5 @@
 from basegun_ml.ocr import is_alarm_weapon
-from basegun_ml.exception import LowQuality,MissingText
+from basegun_ml.exception import LowQuality, MissingText
 import os
 import pytest
 
@@ -12,10 +12,13 @@ def to_bytes(img):
         image_bytes = file.read()
     return image_bytes
 
+
 class TestMeasure:
     def test_LowQuality(self):
         with pytest.raises(LowQuality):
-            is_alarm_weapon(to_bytes(this_dir + "/tests_images/test_ocr/bad_quality.JPG"))
+            is_alarm_weapon(
+                to_bytes(this_dir + "/tests_images/test_ocr/bad_quality.JPG")
+            )
 
     def test_NoText(self):
         with pytest.raises(MissingText):
@@ -23,21 +26,23 @@ class TestMeasure:
 
     def test_LowQualityBypass(self):
         pred = is_alarm_weapon(
-            to_bytes(this_dir + "/tests_images/test_ocr/bad_quality.JPG"), quality_check=False
+            to_bytes(this_dir + "/tests_images/test_ocr/bad_quality.JPG"),
+            quality_check=False,
         )
-        assert pred=="Not an alarm weapon"
+        assert pred == "Not an alarm weapon"
 
     def test_NotAlarm(self):
         pred = is_alarm_weapon(
-            to_bytes(this_dir + "/tests_images/test_ocr/not_alarm.JPG"))
-        assert pred=="Not an alarm weapon"
-    
+            to_bytes(this_dir + "/tests_images/test_ocr/not_alarm.JPG")
+        )
+        assert pred == "Not an alarm weapon"
+
     def test_PAK(self):
-        pred = is_alarm_weapon(
-            to_bytes(this_dir + "/tests_images/test_ocr/PAK.JPG"))
-        assert pred=="alarm weapon PAK"
+        pred = is_alarm_weapon(to_bytes(this_dir + "/tests_images/test_ocr/PAK.JPG"))
+        assert pred == "alarm weapon PAK"
 
     def test_AlarmModel(self):
         pred = is_alarm_weapon(
-            to_bytes(this_dir + "/tests_images/test_ocr/alarm_model.JPG"))
-        assert pred=="alarm weapon from model"
+            to_bytes(this_dir + "/tests_images/test_ocr/alarm_model.JPG")
+        )
+        assert pred == "alarm weapon from model"
