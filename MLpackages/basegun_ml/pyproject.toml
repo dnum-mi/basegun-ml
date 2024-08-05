@@ -25,10 +25,11 @@ dependencies = [
   "onnxruntime>=1.9.0",
   "opencv-python>=4.6.0",
   "numpy>=1.21.6",
-  "fuzzysearch",
-  "pyiqa=0.1.11",
-  "torch=2.3.1",
-  "paddleocr=2.7.3"
+  "fuzzysearch>=0.7.3",
+  "pyiqa==0.1.11",
+  "torch==2.3.1",
+  "paddleocr==2.7.3",
+  "paddlepaddle==2.6.1"
 ]
 license = {file = "LICENSE"}
 
