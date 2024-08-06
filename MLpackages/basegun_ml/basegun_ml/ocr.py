@@ -3,7 +3,7 @@ from fuzzysearch import find_near_matches
 import io
 import PIL.Image as Image
 import numpy as np
-from basegun_ml.exception import MissingText, LowQuality
+from basegun_ml.exceptions import MissingText, LowQuality
 
 
 QUALITY_THRESHOLD = 0.50
