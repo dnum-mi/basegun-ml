@@ -1,5 +1,5 @@
 from basegun_ml.ocr import is_alarm_weapon
-from basegun_ml.exception import LowQuality, MissingText
+from basegun_ml.exceptions import LowQuality, MissingText
 import os
 import pytest
 

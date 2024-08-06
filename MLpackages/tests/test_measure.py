@@ -1,5 +1,5 @@
 from basegun_ml.measure import get_lengths
-from basegun_ml.exception import MissingCard, MissingGun
+from basegun_ml.exceptions import MissingCard, MissingGun
 import os
 import pytest
 
