@@ -160,11 +160,11 @@ def is_alarm_weapon(image_bytes, quality_check=True):
         ):  # The results with recongition and detection confidence below 0.5 are filtered by paddle, the thresholds values can be changed
             text = get_text(results[0])
             if is_alarm_model(text):
-                return "alarm weapon from model"
+                return "Alarm_model"
             elif is_pak(text):
-                return "alarm weapon PAK"
+                return "PAK"
             else:
-                return "Not an alarm weapon"
+                return "Not_alarm"
         else:
             raise MissingText
     else:

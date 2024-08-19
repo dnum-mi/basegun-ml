@@ -67,7 +67,7 @@ alarm_model = is_alarm_weapon(image_bytes, quality_check=True )
 
 ```
 ### Variables description
-<li> <b>alarm_model</b> if the gun is one of the alarm model it returns "alarm weapon from model". If the gun has the PAK marking then alarm_model returns "alarm weapon PAK".
+<li> <b>alarm_model</b> if the gun is one of the alarm model it returns "Alarm_model". If the gun has the PAK marking then alarm_model returns "PAK" else it return "Not_alarm"
 
 <li> <b>quality_check</b> specify if the quality analysis is run before the text detection
 

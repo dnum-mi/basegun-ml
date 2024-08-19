@@ -13,7 +13,7 @@ def to_bytes(img):
     return image_bytes
 
 
-class TestMeasure:
+class TestOCR:
     def test_LowQuality(self):
         with pytest.raises(LowQuality):
             is_alarm_weapon(
@@ -29,20 +29,20 @@ class TestMeasure:
             to_bytes(this_dir + "/tests_images/test_ocr/bad_quality.JPG"),
             quality_check=False,
         )
-        assert pred == "Not an alarm weapon"
+        assert pred == "Not_alarm"
 
     def test_NotAlarm(self):
         pred = is_alarm_weapon(
             to_bytes(this_dir + "/tests_images/test_ocr/not_alarm.JPG")
         )
-        assert pred == "Not an alarm weapon"
+        assert pred == "Not_alarm"
 
     def test_PAK(self):
         pred = is_alarm_weapon(to_bytes(this_dir + "/tests_images/test_ocr/PAK.JPG"))
-        assert pred == "alarm weapon PAK"
+        assert pred == "PAK"
 
     def test_AlarmModel(self):
         pred = is_alarm_weapon(
             to_bytes(this_dir + "/tests_images/test_ocr/alarm_model.JPG")
         )
-        assert pred == "alarm weapon from model"
+        assert pred == "Alarm_model"
