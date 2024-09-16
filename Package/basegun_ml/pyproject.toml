@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.package-data]
+basegun_ml = ["*.pt","*.jpg","*.onnx","*pth"]
+"basegun_ml.PaddleModels"=["**"]
+
+[project]
+name = "basegun_ml"
+version = "2.0.1"
+authors = [
+  { name="aurelien martinez" },
+]
+description = "A deeplearning package for the basegun weapon recognition app"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  "ultralytics>=8.2.48",
+  "pillow>=7.1.2",
+  "onnxruntime>=1.9.0",
+  "opencv-python>=4.6.0",
+  "numpy>=1.21.6",
+  "fuzzysearch>=0.7.3",
+  "pyiqa==0.1.11",
+  "torch==2.3.1",
+  "paddleocr==2.7.3",
+  "paddlepaddle==2.6.1"
+]
+license = {file = "LICENSE"}
+
+[project.urls]
+Basegun-ml = "https://github.com/datalab-mi/Basegun-ml"
+Basegun = "https://github.com/datalab-mi/Basegun"
