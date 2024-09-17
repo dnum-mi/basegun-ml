@@ -1,5 +1,5 @@
 [![PyPI](https://img.shields.io/pypi/v/basegun-ml)](https://pypi.org/project/basegun-ml/)
-![PyPI - License](https://img.shields.io/pypi/l/basegun-ml)
+![GitHub License](https://img.shields.io/github/license/dnum-mi/basegun-ml)
 
 # Basegun-ml
 
