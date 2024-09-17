@@ -14,5 +14,5 @@ __pycache__
 *.csv
 models/
 ignore/
-MLpackages/basegun_ml/dist
+Package/basegun_ml/dist
 *.egg-info/
