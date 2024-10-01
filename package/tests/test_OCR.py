@@ -1,8 +1,8 @@
-from basegun_ml.ocr import is_alarm_weapon
-from basegun_ml.exceptions import LowQuality, MissingText
 import os
-import pytest
 
+import pytest
+from basegun_ml.exceptions import LowQuality, MissingText
+from basegun_ml.ocr import is_alarm_weapon
 
 this_dir, this_filename = os.path.split(__file__)
 

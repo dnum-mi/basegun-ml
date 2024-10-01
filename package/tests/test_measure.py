@@ -1,8 +1,8 @@
-from basegun_ml.measure import get_lengths
-from basegun_ml.exceptions import MissingCard, MissingGun
 import os
-import pytest
 
+import pytest
+from basegun_ml.exceptions import MissingCard, MissingGun
+from basegun_ml.measure import get_lengths
 
 this_dir, this_filename = os.path.split(__file__)
 

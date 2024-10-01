@@ -1,9 +1,10 @@
 from io import BytesIO
 from typing import Union
-from ultralytics import YOLO
-from PIL import Image
-from basegun_ml import model_classif
 
+from PIL import Image
+from ultralytics import YOLO
+
+from basegun_ml import model_classif
 
 CLASSES = [
     "autre_pistolet",

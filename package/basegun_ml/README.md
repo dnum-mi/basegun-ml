@@ -8,6 +8,7 @@ pip install basegun-ml
 
 # Usage
 ## Classification
+**Gun Mechanism Classification**: This feature categorizes an image into a list of families representing different firearm mechanisms. The classification is based on descriptive, objective criteria that are independent of legal classification.
 ```Python
 from basegun_ml.classification import get_typology, list_typologies
 #After the import the model is already warmed-up for faster inference
@@ -31,6 +32,8 @@ list_typologies()
 <li> <b>confidence_level</b>: there are 3 level of confidence defined. According to this performance level the basegun user will have more information.
 
 ## Measure length
+**Measure Length Module**: Measuring the overall length of a firearm or its barrel length is crucial for its legal classification. In France, the classification of long guns depends on these measurements. This module measures these lengths using an image.
+
 ```Python
 from basegun_ml.measure import get_lengths
 
@@ -53,6 +56,7 @@ weapon_length,barrel_length,confidence_card=get_lengths(image_bytes)
 <li> If the card is not detected, the exception <b>MissingCard</b> is raised
 
 ## Alarm Model detection
+**Alarm Gun Recognition**: An alarm gun is a type of blank gun recognized as an alarm by French legislation. These guns are considered impossible to modify to make them lethal. The associated algorithm detects alarm guns using markings on the weapon.
 ```Python
 from basegun_ml.ocr import is_alarm_weapon
 #After the import the model is already warmed-up for faster inference

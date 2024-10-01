@@ -1,9 +1,11 @@
-from ultralytics import YOLO
 import os
-from basegun_ml.utils import load_models
-from paddleocr import PaddleOCR
-import torch
+
 import pyiqa
+import torch
+from paddleocr import PaddleOCR
+from ultralytics import YOLO
+
+from basegun_ml.utils import load_models
 
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 

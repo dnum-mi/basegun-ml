@@ -1,8 +1,9 @@
 import cv2
 import numpy as np
+
 from basegun_ml import model_card, model_keypoints
-from basegun_ml.utils import rotate, distanceCalculate, scalarproduct
 from basegun_ml.exceptions import MissingCard, MissingGun
+from basegun_ml.utils import distanceCalculate, rotate, scalarproduct
 
 
 def get_card(image, model):

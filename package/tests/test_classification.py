@@ -1,6 +1,6 @@
-from basegun_ml.classification import get_typology
 import os
 
+from basegun_ml.classification import get_typology
 
 this_dir, this_filename = os.path.split(__file__)
 

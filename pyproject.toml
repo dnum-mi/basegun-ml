@@ -1,2 +1,2 @@
 [tool.ruff]
-extend-exclude = ["legacy/*"]
+exclude = ["*/legacy/*"]

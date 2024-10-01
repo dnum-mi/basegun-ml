@@ -1,10 +1,11 @@
-from basegun_ml import model_ocr, metric_iqa
-from fuzzysearch import find_near_matches
 import io
-import PIL.Image as Image
-import numpy as np
-from basegun_ml.exceptions import MissingText, LowQuality
 
+import numpy as np
+import PIL.Image as Image
+from fuzzysearch import find_near_matches
+
+from basegun_ml import metric_iqa, model_ocr
+from basegun_ml.exceptions import LowQuality, MissingText
 
 QUALITY_THRESHOLD = 0.50
 

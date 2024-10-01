@@ -1,10 +1,8 @@
 from io import BytesIO
 from typing import Union
 
-import numpy as np
-from ultralytics import YOLO
 from PIL import Image
-
+from ultralytics import YOLO
 
 CLASSES = [
     "autre_pistolet",
@@ -31,8 +29,8 @@ def load_model_inference(model_path: str):
     Returns:
         Model: loaded model ready for prediction
     """
-    model = YOLO('yolov8s-cls.pt')
-    model=YOLO(model_path)
+    model = YOLO("yolov8s-cls.pt")
+    model = YOLO(model_path)
     return model
 
 
@@ -47,8 +45,8 @@ def predict_image(model, img: bytes) -> Union[str, float]:
         Union[str, float]: (label, confidence) of best class predicted
     """
     im = Image.open(BytesIO(img))
-    results = model(im,verbose=False)
-    predicted_class=results[0].probs.top5[0]
-    label=CLASSES[predicted_class]
-    confidence=float(results[0].probs.top5conf[0])
+    results = model(im, verbose=False)
+    predicted_class = results[0].probs.top5[0]
+    label = CLASSES[predicted_class]
+    confidence = float(results[0].probs.top5conf[0])
     return (label, confidence)
